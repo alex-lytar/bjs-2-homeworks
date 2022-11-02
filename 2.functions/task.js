@@ -21,11 +21,10 @@ function getArrayParams(arr) {
 
   // Ваш код
 
-  return { min: min, max: max, avg: avg };
 }
 
 // Задание 2
-let func = function worker(arr) {
+  function worker(arr) {
   let sum = 0;
   for (let i = 0; i < arr.length; i++) {
     sum += arr[i];
