@@ -1,6 +1,6 @@
 function parseCount(parsNumber) {
-    if(parseCount === NaN) {
-      throw "Невалидное значение";
+    if(isNaN(parseInt(parseNumber))) {
+      throw new Error ("Невалидное значение");
     }
     return parseInt(parsNumber, 10);
     
