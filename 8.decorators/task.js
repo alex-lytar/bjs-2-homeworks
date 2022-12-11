@@ -21,25 +21,24 @@ function cachingDecoratorNew(func) {
 
 
 
-function debounceDecoratorNew(func) {
-  // Ваш код
-  let isCooldown = false;
-  let timeout = null;
-
-  const wrapper = function() {
-    wrapper.allCount += 1;
-    if (timeout) {
-      clearTimeout(timeout)
-    }
-    timeout = setTimeout(() => (isCooldown = false), this.ms);
-    if (isCooldown) {
+function debounceDecoratorNew(func, delay) {
+  let timeoutId = null;
+  let isFirstTime = true;
+  function wrapper(...args) {
+    if (isFirstTime) {
       wrapper.count += 1;
-      return;
-    }
-    func.apply(this, arguments);
-    isCooldown = true;
+      isFirstTime = false;
+      return func(...args);
+    };
+    wrapper.allCount += 1;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+      wrapper.count += 1;
+      return func(...args);
+    }, delay)
   };
-  wrapper.count = 0
-  wrapper.allCount = 0
-  return wrapper
+  wrapper.count = 0;
+  wrapper.allCount = 0;
+  return wrapper;
 }
